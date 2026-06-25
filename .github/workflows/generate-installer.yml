@@ -85,7 +85,9 @@ jobs:
 
       # Upload as workflow artifact
       - name: Upload ${{ github.event.inputs.file }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
+        env:
+          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
         with:
           name: macOS ${{ env.installer_name }}
           path: "~/Desktop/${{ env.installer_name }}.${{ github.event.inputs.file }}"
@@ -95,6 +97,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
+          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: macOS-${{ env.installer_name }}-${{ github.run_number }}
@@ -106,6 +109,7 @@ jobs:
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
+          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
