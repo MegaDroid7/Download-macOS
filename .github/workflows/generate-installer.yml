@@ -36,7 +36,7 @@ jobs:
     runs-on: macos-latest
     if: github.repository == 'MegaDroid7/Download-macOS'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       # Setup
       - name: Extract Version Details
