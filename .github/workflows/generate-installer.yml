@@ -85,7 +85,7 @@ jobs:
 
       # Upload as workflow artifact
       - name: Upload ${{ github.event.inputs.file }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: macOS ${{ env.installer_name }}
           path: "~/Desktop/${{ env.installer_name }}.${{ github.event.inputs.file }}"
