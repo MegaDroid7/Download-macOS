@@ -36,7 +36,7 @@ jobs:
     runs-on: macos-15-intel
     if: github.repository == 'MegaDroid7/Download-macOS'
     steps:
-      - uses: actions/checkout
+      - uses: actions/checkout@v6
       
       # Setup
       - name: Extract Version Details
@@ -85,7 +85,7 @@ jobs:
 
       # Upload as workflow artifact
       - name: Upload ${{ github.event.inputs.file }}
-        uses: actions/upload-artifact
+        uses: actions/upload-artifact@v7.0.1
         env:
           ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
         with:
@@ -95,9 +95,8 @@ jobs:
       # Create GitHub Release
       - name: Create Release
         id: create_release
-        uses: actions/create-release
+        uses: softprops/action-gh-release@v3
         env:
-          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: macOS-${{ env.installer_name }}-${{ github.run_number }}
@@ -107,9 +106,8 @@ jobs:
 
       # Upload asset to release
       - name: Upload Release Asset
-        uses: actions/upload-release-asset
+        uses: softprops/action-gh-release@v3
         env:
-          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
